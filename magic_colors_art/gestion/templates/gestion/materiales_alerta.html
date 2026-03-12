@@ -1,0 +1,45 @@
+{% load static %}
+{% extends 'gestion/home.html' %}
+
+{% block content %}
+<section style="max-width:900px; margin:50px auto; padding:30px; background-color:#fff0f5; border-radius:15px; box-shadow:0 4px 8px rgba(0,0,0,0.1);">
+    <h2 style="text-align:center; color:#800020; margin-bottom:30px;">Materiales con precio insuficiente</h2>
+
+    {% if materiales %}
+        <table style="width:100%; border-collapse:collapse;">
+            <thead>
+                <tr style="background-color:#f7c7d9; color:#800020;">
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Stock</th>
+                    <th>Costo</th>
+                    <th>Impuesto</th>
+                    <th>Precio</th>
+                    <th>Ganancia</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for material in materiales %}
+                    <tr>
+                        <td>{{ material.nombre }}</td>
+                        <td>{{ material.categoria }}</td>
+                        <td>{{ material.stock }}</td>
+                        <td>${{ material.costo }}</td>
+                        <td>${{ material.impuesto }}</td>
+                        <td>${{ material.precio }}</td>
+                        <td>${{ material.ganancia }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p style="text-align:center; color:#555;">Todos los materiales tienen un precio suficiente.</p>
+    {% endif %}
+
+    <div style="text-align:center; margin-top:20px;">
+        <a href="{% url 'admin_materiales' %}">
+            <button>Volver a Materiales</button>
+        </a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'gestion/base.html' %}
+{% block content %}
+
+<section style="max-width:800px; margin:50px auto; padding:30px; background-color:#fff0f5; border-radius:15px; box-shadow:0 4px 8px rgba(0,0,0,0.1);">
+    <h2 style="text-align:center; color:#800020; margin-bottom:30px;">Materiales</h2>
+
+    {% if materiales %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Cantidad Disponible</th>
+                    <th>Precio Unitario</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for material in materiales %}
+                    <tr>
+                        <td>{{ material.nombre }}</td>
+                        <td>{{ material.categoria }}</td>
+                        <td>{{ material.stock }}</td>
+                        <td>${{ material.precio }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p style="text-align:center; color:#555;">No hay materiales registrados.</p>
+    {% endif %}
+</section>
+
+{% endblock %}

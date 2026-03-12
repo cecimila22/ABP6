@@ -1,0 +1,79 @@
+{% extends 'gestion/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<section style="max-width:600px; margin:50px auto; padding:30px; background-color:#fff0f5; border-radius:15px;">
+    <h2 style="text-align:center; margin-bottom:20px;">Realizar Pedido</h2>
+
+    <!-- Mensajes de éxito o advertencia -->
+    {% if messages %}
+        {% for message in messages %}
+            <div style="padding:10px;margin:10px 0;background:#eee;border-radius:5px">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Datos del cliente -->
+        <h3>Datos del Cliente</h3>
+        <label for="nombre">Nombre *</label>
+        <input type="text" name="nombre" id="nombre" placeholder="Nombre del cliente" required style="width:100%; padding:8px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc;">
+
+        <label for="telefono">Teléfono</label>
+        <input type="text" name="telefono" id="telefono" placeholder="Opcional" style="width:100%; padding:8px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc;">
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="Opcional"
+        style="width:100%; padding:8px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc;">
+
+        <label for="direccion">Dirección *</label>
+        <textarea name="direccion" id="direccion" placeholder="Dirección del cliente" required style="width:100%; padding:8px; margin-bottom:15px; border-radius:5px; border:1px solid #ccc;"></textarea>
+
+        <!-- Selección de producto y canal -->
+        <h3>Detalle del Pedido</h3>
+        <label for="producto">Producto *</label>
+        <select name="producto" id="producto" required style="width:100%; padding:8px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc;">
+            {% for p in productos %}
+                <option value="{{ p.id }}">{{ p.nombre }} - Precio: ${{ p.precio }} - Stock: {{ p.stock }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="cantidad">Cantidad *</label>
+        <input type="number" name="cantidad" id="cantidad" value="1" min="1" style="width:100%; padding:8px; margin-bottom:20px; border-radius:5px; border:1px solid #ccc;">
+
+        <button type="submit" style="width:100%; padding:10px; border:none; border-radius:5px; background-color:#ff69b4; color:white; font-size:16px; cursor:pointer;">
+            Realizar Pedido
+        </button>
+    </form>
+</section>
+<script>
+
+document.getElementById("telefono").addEventListener("blur", function(){
+
+    let telefono = this.value;
+
+    fetch(`/buscar-cliente/?telefono=${telefono}`)
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        if(data.nombre){
+
+            document.getElementById("nombre").value = data.nombre;
+            document.getElementById("email").value = data.email;
+            document.getElementById("direccion").value = data.direccion;
+
+        }
+
+    });
+
+});
+
+</script>
+{% endblock %}

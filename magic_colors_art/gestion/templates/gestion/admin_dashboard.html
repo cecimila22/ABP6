@@ -1,0 +1,13 @@
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+<section style="padding:30px;">
+    <h2>Panel de Administración</h2>
+    <ul>
+        <li><a href="{% url 'admin_clientes' %}">Clientes</a></li>
+        <li><a href="{% url 'admin_pedidos' %}">Pedidos</a></li>
+        <li><a href="{% url 'admin_materiales' %}">Materiales</a></li>
+        <li><a href="{% url 'admin_canales' %}">Canales de venta</a></li>
+    </ul>
+</section>
+{% endblock %}

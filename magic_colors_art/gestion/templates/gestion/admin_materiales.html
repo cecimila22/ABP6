@@ -1,0 +1,53 @@
+{% load static %}
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+<section style="max-width:1000px; margin:50px auto; padding:30px; background-color:#fff0f5; border-radius:15px; box-shadow:0 4px 8px rgba(0,0,0,0.1);">
+    <h2 style="text-align:center; color:#800020; margin-bottom:30px;">Materiales - Panel Admin</h2>
+
+    {% if materiales %}
+        <table style="width:100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background-color:#f7c7d9; color:#800020;">
+                    <th style="padding:10px; border:1px solid #f7c7d9;">Nombre</th>
+                    <th style="padding:10px; border:1px solid #f7c7d9;">Categoría</th>
+                    <th style="padding:10px; border:1px solid #f7c7d9;">Stock</th>
+                    <th style="padding:10px; border:1px solid #f7c7d9;">Precio Unitario</th>
+                    <th style="padding:10px; border:1px solid #f7c7d9;">Costo</th>
+                    <th style="padding:10px; border:1px solid #f7c7d9;">Impuesto</th>
+                    <th style="padding:10px; border:1px solid #f7c7d9;">Ganancia</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for material in materiales %}
+                    {% if material.precio < material.costo|add:material.impuesto %}
+                        <!-- Resalta en rojo si el precio no cubre costo + impuesto -->
+                        <tr style="background-color:#f8d7da; color:#721c24;">
+                    {% else %}
+                        <tr>
+                    {% endif %}
+                        <td style="padding:10px; border:1px solid #f7c7d9;">{{ material.nombre }}</td>
+                        <td style="padding:10px; border:1px solid #f7c7d9;">{{ material.categoria }}</td>
+                        <td style="padding:10px; border:1px solid #f7c7d9;">{{ material.stock }}</td>
+                        <td style="padding:10px; border:1px solid #f7c7d9;">${{ material.precio }}</td>
+                        <td style="padding:10px; border:1px solid #f7c7d9;">${{ material.costo }}</td>
+                        <td style="padding:10px; border:1px solid #f7c7d9;">${{ material.impuesto }}</td>
+                        <td style="padding:10px; border:1px solid #f7c7d9;">${{ material.ganancia }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p style="text-align:center; color:#555;">No hay materiales registrados.</p>
+    {% endif %}
+
+    <!-- Botón para agregar nuevo material -->
+    <div style="text-align:center; margin-top:30px;">
+        <a href="{% url 'agregar_material' %}">
+            <button style="padding:10px 20px; background:#800020; color:white; border:none; border-radius:8px; cursor:pointer;">
+                Agregar Material
+            </button>
+        </a>
+    </div>
+</section>
+{% endblock %}

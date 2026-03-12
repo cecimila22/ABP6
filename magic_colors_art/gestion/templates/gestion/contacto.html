@@ -1,0 +1,30 @@
+{% extends 'gestion/base.html' %}
+{% block content %}
+
+<section style="max-width:600px; margin:50px auto; padding:30px; background-color:#fff0f5; border-radius:15px; box-shadow:0 4px 8px rgba(0,0,0,0.1);">
+    <h2 style="text-align:center; color:#800020; margin-bottom:30px;">Contacto</h2>
+
+    {% if mensaje %}
+        <div class="success">{{ mensaje }}</div>
+    {% endif %}
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <label>Nombre</label>
+        <input type="text" name="nombre" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Mensaje</label>
+        <textarea name="mensaje" required></textarea>
+
+        <button type="submit">Enviar</button>
+    </form>
+</section>
+
+{% endblock %}

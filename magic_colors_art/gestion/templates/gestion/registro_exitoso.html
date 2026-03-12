@@ -1,0 +1,12 @@
+{% extends 'gestion/base.html' %}
+{% block content %}
+
+<section class="contenedor">
+    <h2>Registro exitoso</h2>
+    <p>El cliente fue registrado correctamente.</p>
+    <a href="{% url 'crear_pedido' %}">
+        <button>Realizar un pedido</button>
+    </a>
+</section>
+
+{% endblock %}

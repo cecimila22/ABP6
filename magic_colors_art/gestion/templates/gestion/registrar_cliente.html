@@ -1,0 +1,13 @@
+{% extends 'gestion/base.html' %}
+{% block content %}
+
+<section class="contenedor">
+    <h2>Registro de Cliente</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Registrarse</button>
+    </form>
+</section>
+
+{% endblock %}

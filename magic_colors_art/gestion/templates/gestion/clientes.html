@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Clientes</title>
-</head>
-<body>
-    <h1>Lista de clientes</h1>
+{% extends 'gestion/base.html' %}
+{% block content %}
 
+<section class="productos-destacados">
+    <h2 style="text-align:center; color:#800020;">Lista de productos</h2>
     <ul>
-        {% for cliente in clientes %}
-            <li>{{ cliente.nombre }} - {{ cliente.email }}</li>
+        {% for producto in productos %}
+            <li>{{ producto.nombre }} - ${{ producto.precio }}</li>
         {% empty %}
-            <li>No hay clientes registrados.</li>
+            <li>No hay productos registrados.</li>
         {% endfor %}
     </ul>
+</section>
 
-    <a href="/">Volver al inicio</a>
-</body>
-</html>
+{% endblock %}

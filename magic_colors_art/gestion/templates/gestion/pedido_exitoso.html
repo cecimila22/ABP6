@@ -1,0 +1,28 @@
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+
+<section style="text-align:center; margin-top:50px;">
+
+    <img src="/static/images/logo.jfif" width="150">
+
+    <h2 style="color:#800020;">Pedido registrado con éxito</h2>
+
+    <p>
+        Pedido número <strong>#{{ pedido.id }}</strong> registrado para
+        <strong>{{ pedido.cliente.nombre }}</strong>.
+    </p>
+
+    <br>
+
+    <a href="{% url 'crear_pedido' %}">
+        <button>Tomar otro pedido</button>
+    </a>
+
+    <a href="{% url 'home' %}">
+        <button>Volver al inicio</button>
+    </a>
+
+</section>
+
+{% endblock %}

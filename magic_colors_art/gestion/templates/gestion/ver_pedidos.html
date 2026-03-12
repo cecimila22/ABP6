@@ -1,0 +1,67 @@
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+
+<section style="max-width:1100px; margin:40px auto; padding:20px;">
+
+    <h2 style="text-align:center; color:#800020;">Panel de Pedidos</h2>
+
+    <br>
+
+    <table style="width:100%; border-collapse:collapse; background:white;">
+
+        <thead style="background:#ff69b4; color:white;">
+            <tr>
+                <th style="padding:10px;">Pedido</th>
+                <th>Cliente</th>
+                <th>Email</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Canal</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for pedido in pedidos %}
+
+            {% for producto in pedido.productos.all %}
+
+            <tr style="border-bottom:1px solid #ddd; text-align:center;">
+                <td>#{{ pedido.id }}</td>
+                <td>{{ pedido.cliente.nombre }}</td>
+                <td>{{ pedido.cliente.email }}</td>
+                <td>{{ producto.producto.nombre }}</td>
+                <td>{{ producto.cantidad }}</td>
+                <td>{{ pedido.canal_venta.nombre }}</td>
+                <td>{{ pedido.fecha }}</td>
+            </tr>
+
+            {% endfor %}
+
+        {% empty %}
+
+            <tr>
+                <td colspan="7" style="padding:20px; text-align:center;">
+                    No hay pedidos registrados
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    <br>
+
+    <div style="text-align:center;">
+        <a href="{% url 'home' %}">
+            <button style="padding:10px 20px;">Volver al Inicio</button>
+        </a>
+    </div>
+
+</section>
+
+{% endblock %}

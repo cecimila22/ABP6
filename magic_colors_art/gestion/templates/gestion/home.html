@@ -1,0 +1,57 @@
+{% extends 'gestion/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Sección de bienvenida -->
+<section style="text-align:center; padding:50px 20px; background-color:#fff0f5;">
+    <!-- Logo -->
+    <img src="{% static 'images/logo.jfif' %}" alt="Logo Magic Colors Art" style="width:150px; margin-bottom:20px;">
+    
+    <h1 style="color:#800020; font-size:2.8rem; margin-bottom:15px;">Magia hecha arte</h1>
+    <p style="font-size:1.2rem; max-width:700px; margin:0 auto 30px;">
+        Bienvenidos a <strong>Magic Colors Art</strong>, donde cada creación es única y hecha con pasión.
+        Explora nuestros productos, realiza tus pedidos y descubre cómo convertimos materiales simples en magia.
+    </p>
+
+    <!-- Botones principales -->
+    <div style="display:inline-flex; gap:15px; flex-wrap:wrap; justify-content:center;">
+       <a href="{% url 'crear_pedido' %}">
+            <button style="background-color:#800020; color:white; padding:12px 25px; border:none; border-radius:8px; cursor:pointer; font-size:1rem; transition:0.3s;">
+                Realizar un pedido
+            </button>
+        </a>
+        <a href="{% url 'ver_pedidos' %}">
+            <button style="background-color:#800020; color:white; padding:12px 25px; border:none; border-radius:8px; cursor:pointer; font-size:1rem; transition:0.3s;">
+                Ver pedidos
+            </button>
+        </a>
+    </div>
+</section>
+
+<!-- Sección de productos destacados -->
+<section class="productos-destacados" style="padding:50px 20px; background-color:#fff;">
+    <h2 style="text-align:center; color:#800020; margin-bottom:40px;">Nuestros productos</h2>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:25px;">
+        {% for producto in productos %}
+            <div style="
+                border:2px solid #f7c7d9; 
+                border-radius:12px; 
+                padding:20px; 
+                width:220px; 
+                text-align:center; 
+                box-shadow:2px 2px 10px rgba(0,0,0,0.1); 
+                transition: transform 0.3s, box-shadow 0.3s;"
+                onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='4px 4px 15px rgba(0,0,0,0.2)';"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='2px 2px 10px rgba(0,0,0,0.1)';"
+            >
+                <h3 style="color:#333;">{{ producto.nombre }}</h3>
+                <p style="color:#555; margin:5px 0;">Precio: ${{ producto.precio }}</p>
+                <p style="color:#555; margin:5px 0;">Stock: {{ producto.stock }}</p>
+            </div>
+        {% empty %}
+            <p style="text-align:center; font-style:italic;">No hay productos disponibles.</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}
